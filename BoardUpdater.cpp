@@ -16,7 +16,7 @@ void  BoardUpdater::UpdateBoard(Board& currentBoard, int gameMode)
 
 
     //
-    //outer loop                                                                          
+    //outer loop
 
      for (int xBoard = 0; xBoard < currentBoard.width; ++xBoard)
      {
@@ -27,8 +27,8 @@ void  BoardUpdater::UpdateBoard(Board& currentBoard, int gameMode)
            {
                for(int yLocal = -1; yLocal < 2; ++yLocal)
                 {
-                    if (currentBoard.isInBounds((xBoard + xLocal), (yBoard + yLocal))) 
-                    {      
+                    if (currentBoard.isInBounds((xBoard + xLocal), (yBoard + yLocal)))
+                    {
                        surroundingCells += currentBoard.isCellAlive( (xBoard + xLocal) , (yBoard + yLocal) ) ;
                        //cout << currentBoard.isCellAlive( (xBoard + xLocal) , (yBoard + yLocal) ) << " ";
                     }
@@ -36,12 +36,12 @@ void  BoardUpdater::UpdateBoard(Board& currentBoard, int gameMode)
                     {
                         switch (gameMode)
                         {
-//      __  ____                     
-//     /  |/  (_)_____________  _____
-//    / /|_/ / / ___/ ___/ __ \/ ___/
-//   / /  / / / /  / /  / /_/ / /    
-//  /_/  /_/_/_/  /_/   \____/_/     
-//                                 
+ //     __  ____                     
+ //    /  |/  (_)_____________  _____
+ //   / /|_/ / / ___/ ___/ __ \/ ___/
+ //  / /  / / / /  / /  / /_/ / /
+ // /_/  /_/_/_/  /_/   \____/_/
+ //
                             case 1:
                             //checks four directions
                             //. X .
@@ -62,7 +62,7 @@ void  BoardUpdater::UpdateBoard(Board& currentBoard, int gameMode)
 
                             //checks other four directions
                             //X . X
-                            //. . .  
+                            //. . .
                             //X . X
 
                                 else if ( currentBoard.isInBounds(xBoard + xLocal - 1, yBoard + yLocal - 1) )
@@ -80,16 +80,16 @@ void  BoardUpdater::UpdateBoard(Board& currentBoard, int gameMode)
                                 //surroundingCells += currentBoard.isCellAlive( (xBoard + xLocal) , (yBoard + yLocal) ) ;
                                 break;
 
-//      ____                    __                __ 
+//      ____                    __                __
 //     / __ \____  __  ______ _/ /_  ____  __  __/ /_
 //    / / / / __ \/ / / / __ `/ __ \/ __ \/ / / / __/
-//   / /_/ / /_/ / /_/ / /_/ / / / / / / / /_/ / /_  
-//  /_____/\____/\__,_/\__, /_/ /_/_/ /_/\__,_/\__/  
-//                    /____/                        
+//   / /_/ / /_/ / /_/ / /_/ / / / / / / / /_/ / /_
+//  /_____/\____/\__,_/\__, /_/ /_/_/ /_/\__,_/\__/
+//                    /____/
                             case 2:
                                 int xToCheck = xBoard + xLocal;
                                 int yToCheck = yBoard + yLocal;
-                                
+
                                 //wraps the x direction
                                 if ( (xBoard + xLocal) < 0) {xToCheck = currentBoard.width - 1;}
                                 if ( (xBoard + xLocal) == currentBoard.width) {xToCheck = 0;}
@@ -101,21 +101,21 @@ void  BoardUpdater::UpdateBoard(Board& currentBoard, int gameMode)
                                 surroundingCells += currentBoard.isCellAlive(xToCheck, yToCheck);
 
                                 break;
-//     ________                _     
+//     ________                _
 //    / ____/ /___ ___________(_)____
 //   / /   / / __ `/ ___/ ___/ / ___/
-//  / /___/ / /_/ (__  |__  ) / /__  
-//  \____/_/\__,_/____/____/_/\___/  
-//                                  
+//  / /___/ / /_/ (__  |__  ) / /__
+//  \____/_/\__,_/____/____/_/\___/
+//
                             //default://classic
                               //  break;
                         }
                     }
-                    
+
                 //cout << surroundingCells << endl;
                 }//for
                 //cout << endl;
-                
+
            }//for
            //cout << endl << endl;
 
@@ -151,7 +151,7 @@ void  BoardUpdater::RandomizeBoard(Board& currentBoard, double percentLiving)
         {
            currentBoard.boardArray[i][j] = false;//random cells
         }
-    } 
+    }
 
 
     int randX = rand() % currentBoard.width;
@@ -164,9 +164,10 @@ void  BoardUpdater::RandomizeBoard(Board& currentBoard, double percentLiving)
             randX = rand() % currentBoard.width;
             randY = rand() % currentBoard.height;
         }
-        
+
+
         currentBoard.setCellState(randX, randY, true);
-    }  
+    }
 
 }
 
@@ -191,7 +192,7 @@ bool BoardUpdater::DoesCellLive(int surroundingCells, bool currentState)
         return true;
     else if (surroundingCells >= 2)
         return currentState;
-    else 
+    else
          return false;
 }
 

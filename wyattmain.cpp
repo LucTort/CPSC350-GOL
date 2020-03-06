@@ -17,8 +17,12 @@ int main(int argc, char **argv)
     int width = 0;
     string line = "";
     char grid[length][width];
-    int xcount = 0;
-    int ycount = 0;
+    int xcount = -1;
+    int ycount = -1;
+    int randlength = 0;
+    int randwidth = 0;
+    double percentageAlive = 0.0;
+    int mode = 0; 
 
 
 
@@ -51,7 +55,10 @@ int main(int argc, char **argv)
         }
       }
       cout<<"Here is the board"<<endl;
-      Board *myBoard = new Board(length+1, width);
+      cout<< length << "Length"<< endl;
+      cout<< width << "Width"<< endl;
+      cout<<  "fchghjnhgcfgvhbjnjbhvgcfhvbjnhvgcfhvbjnkbhvgcfxhjkhgcfhjnhgcfxdgcvhbjbhgf"<< endl;
+      Board *myBoard = new Board(length, width);
       myBoard->printBoard();
 
       for (int i =0; i<length ; ++i){
@@ -59,7 +66,7 @@ int main(int argc, char **argv)
         cout<<line<<endl;
         int index = 0;
         xcount += 1;
-        ycount = 0;
+        ycount = -1;
         // cout << "xcount is:"<< xcount << endl;
         //https://stackoverflow.com/questions/1315041/how-can-i-iterate-through-a-string-and-also-know-the-index-current-position
         for (auto it = line.begin() ; it < line.end(); ++it, ++index){
@@ -83,30 +90,47 @@ int main(int argc, char **argv)
       f.close();
      }
     else if (number == 2){
-      cout << "this is where lucas enters the random generation code"<< endl;
+      cout << "RANDOM BOARD"<< endl;
+      cout << "What length do you want your board? "<< endl;
+      cin >> randlength;
+      cout << "What width do you want your board? "<< endl;
+      cin >> randwidth;
+      cout << "What percent of the cells would you like to be alive (0-100)"<<endl;
+      cin >> percentageAlive;
+      percentageAlive = percentageAlive/100.0;
+      Board *myBoard = new Board(randlength, randwidth);
+      BoardUpdater *myBoardUpdater = new BoardUpdater();
+      myBoardUpdater -> RandomizeBoard(*myBoard, percentageAlive);
+      myBoard -> printBoard();
+    }
+    cout << "Which mode would you like to play? (1,2,3)"<< endl;
+    cout << "0) Classic Mode "<< endl;
+    cout << "1) Mirror Mode "<< endl;
+    cout << "2) Donut Mode "<< endl;
+    cin >> mode;
+    if (mode == 0){
+
+
+    }else if (mode == 1){
+
+    }else if (mode == 2){
+
+    }else{
+      cout << "Please enter a valid number, try again! "<< endl;
+      return 1;
     }
 
-    // Board *myBoard = new Board();
+
 
     BoardUpdater *boardUpdater = new BoardUpdater();
 
-    // ReadFile *myReadFile = new ReadFile();
-    // // myReadFile->argRead(int, char**);
-    // myReadFile->option(argv[0]);
-
-    // for(int i = 0; i < 3; ++i)
-    // {
-    //     myBoard->printBoard();
-    //
-    //     boardUpdater->UpdateBoard(*myBoard);
-    // }
-
-
-
-
-    //delete myBoard;
-
-    //cout << myTestArray[0][1] << endl;
+//        TO DO LIST
+// USER INPUT DIMENSIONS FOR Randomize
+// IMPLEMENT ALL LUCAS METHODS
+// OUTPUT TO A FILE
+// SLEEP OUTPUT
+// ENTER FUNCTIONALITY
+// . TO -
 
     return 0;
 }
