@@ -24,6 +24,13 @@ int main(int argc, char **argv)
         cout << "Printing board again" << endl;
         myBoard->printBoard();
 
+        Board *myBoardAgain = new Board(5, 4);
+
+        boardUpdater->CopyBoard(*myBoard, *myBoardAgain);
+
+        cout << boardUpdater->AreBoardsSame(*myBoard, *myBoardAgain) << endl;
+
+
         //boardUpdater->WaitForEnter();
     //}
 

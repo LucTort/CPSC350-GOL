@@ -193,6 +193,22 @@ void  BoardUpdater::CopyBoard(Board& boardToCopy, Board& boardToUpdate)
     }
 }
 
+bool  BoardUpdater::AreBoardsSame(Board& referenceBoard, Board& boardToCheck)
+{
+     for (int i = 0; i < referenceBoard.height; ++i)
+    {
+        for (int j = 0; j < referenceBoard.width; ++j)
+        {
+           if (!(referenceBoard.isCellAlive(j, i) == boardToCheck.isCellAlive(j, i) ))
+           {
+               return false;
+           }
+        }
+    }
+
+    return true;
+}
+
 bool BoardUpdater::DoesCellLive(int surroundingCells, bool currentState)
 {
     //cout << surroundingCells << " ";
