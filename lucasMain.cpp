@@ -36,6 +36,7 @@ int main(int argc, char **argv)
 
         cout << boardUpdater->AreBoardsSame(*myBoard, *myBoardAgain) << endl;
 
+        myBoard->printBoard();
         myBoard->PrintBoardToFile("test.txt");
 
 

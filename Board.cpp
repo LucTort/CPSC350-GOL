@@ -155,9 +155,9 @@ void Board::PrintBoardToFile(string fileName)
 
     ofstream outputFile(fileName);
 
-    for(int x = 0; x < width; ++x)
+    for(int y = 0; y < height; ++y)
     {
-        for(int y = 0; y < height; ++y)
+        for(int x = 0; x < width; ++x)
         {
             if (boardArray[y][x])
             {
