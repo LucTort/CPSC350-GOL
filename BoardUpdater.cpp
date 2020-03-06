@@ -140,7 +140,7 @@ void  BoardUpdater::RandomizeBoard(Board& currentBoard, double percentLiving)
 
     if (spacesToPopulate > currentBoard.width * currentBoard.height)
     {
-        cout << "Cannot produce more than 100 percent population" << endl;
+        cout << endl << "Cannot produce more than 100 percent population." << endl;
         return;
     }
 
@@ -156,6 +156,7 @@ void  BoardUpdater::RandomizeBoard(Board& currentBoard, double percentLiving)
 
     int randX = rand() % currentBoard.width;
     int randY = rand() % currentBoard.height;
+
     for (int i = 0; i < spacesToPopulate; ++i)
     {
         while (currentBoard.isCellAlive(randX , randY) )
@@ -164,7 +165,6 @@ void  BoardUpdater::RandomizeBoard(Board& currentBoard, double percentLiving)
             randY = rand() % currentBoard.height;
         }
         
-
         currentBoard.setCellState(randX, randY, true);
     }  
 

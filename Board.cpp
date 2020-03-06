@@ -37,9 +37,9 @@ Board::Board(int xSizeInput, int ySizeInput)
 
 
 
-    height = xSizeInput;
+    width = xSizeInput;
 
-    width = ySizeInput;
+    height = ySizeInput;
 
     boardArray = new bool*[height];
     for (int i = 0; i < height; ++i)
