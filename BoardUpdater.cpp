@@ -9,24 +9,30 @@ BoardUpdater::BoardUpdater()
 
 
 
-void  BoardUpdater::UpdateBoard(Board& currentBoard, int gameMode)
+void  BoardUpdater::UpdateBoard(Board &currentBoard, int gameMode)
 {
     int surroundingCells = 0;
+    deblog("Creating placeholder board");
     Board *placeholderBoard = new Board(currentBoard.width, currentBoard.height);
 
 
     //
     //outer loop
 
-     for (int xBoard = 0; xBoard < currentBoard.width; ++xBoard)
+     for (int yBoard = 0; yBoard < currentBoard.height; ++yBoard)
      {
-         for (int yBoard= 0; yBoard < currentBoard.height; ++yBoard)
+         deblog("Outer board loop");
+         for (int xBoard = 0; xBoard < currentBoard.width; ++ xBoard)
          {
+
+            deblog(xBoard + " " + yBoard);
            //inner loop
-           for(int xLocal = -1; xLocal < 2; ++xLocal)
+           for(int yLocal = -1; yLocal < 2; ++yLocal)
            {
-               for(int yLocal = -1; yLocal < 2; ++yLocal)
+               deblog("Outer local loop");
+               for(int xLocal = -1; xLocal < 2; ++xLocal)
                 {
+                    deblog("|" + xLocal + " " + yLocal + " ");
                     if (currentBoard.isInBounds((xBoard + xLocal), (yBoard + yLocal)))
                     {
                        surroundingCells += currentBoard.isCellAlive( (xBoard + xLocal) , (yBoard + yLocal) ) ;
@@ -34,6 +40,7 @@ void  BoardUpdater::UpdateBoard(Board& currentBoard, int gameMode)
                     }
                     else
                     {
+                        deblog("out of bounds");
                         switch (gameMode)
                         {
  //     __  ____
@@ -124,19 +131,23 @@ void  BoardUpdater::UpdateBoard(Board& currentBoard, int gameMode)
 
             surroundingCells -= currentBoard.isCellAlive(xBoard , yBoard);//subtracts from number of cells if the starting cell is alive
             placeholderBoard->setCellState(xBoard, yBoard, DoesCellLive(surroundingCells, currentBoard.isCellAlive(xBoard, yBoard) ));
-
+            deblog("heck yes");
             //cout << "Surrounding Cells:" << surroundingCells << endl;
 
             surroundingCells = 0;
          }//for
          surroundingCells = 0;
      }//for
+     deblog("Trying to copy board");
      CopyBoard(*placeholderBoard, currentBoard);
 }//UpdateBoard
 
 void  BoardUpdater::RandomizeBoard(Board& currentBoard, double percentLiving)
 {
+    
     int spacesToPopulate = ( int (currentBoard.width * currentBoard.height * percentLiving));
+
+    cout << spacesToPopulate << endl;
 
     if (spacesToPopulate > currentBoard.width * currentBoard.height)
     {
@@ -145,37 +156,37 @@ void  BoardUpdater::RandomizeBoard(Board& currentBoard, double percentLiving)
     }
 
     //clears board
-    for (int i = 0; i < currentBoard.height; ++i)
+    for (int i = 0; i < currentBoard.width; ++i)
     {
-        for (int j = 0; j < currentBoard.width; ++j)
+        for (int j = 0; j < currentBoard.height; ++j)
         {
-           currentBoard.boardArray[i][j] = false;//random cells
+           currentBoard.boardArray[j][i] = false;//random cells
         }
     }
+    
 
 
-    int randY= rand() % currentBoard.width;
-    int randX = rand() % currentBoard.height;
+    int randY= rand() % currentBoard.height;
+    int randX = rand() % currentBoard.width;
 
     for (int i = 0; i < spacesToPopulate; ++i)
     {
         while (currentBoard.isCellAlive(randX , randY) )
         {
-            randY = rand() % currentBoard.width;
-            randX = rand() % currentBoard.height;
+            randY = rand() % currentBoard.height;
+            randX = rand() % currentBoard.width;
         }
 
 
         currentBoard.setCellState(randX, randY, true);
     }
-
 }
 
 void  BoardUpdater::CopyBoard(Board& boardToCopy, Board& boardToUpdate)
 {
-     for (int i = 0; i < boardToCopy.width; ++i)
+     for (int i = 0; i < boardToCopy.height; ++i)
     {
-        for (int j = 0; j < boardToCopy.height; ++j)
+        for (int j = 0; j < boardToCopy.width; ++j)
         {
            *(*(boardToUpdate.boardArray+i)+j) = *(*(boardToCopy.boardArray+i)+j);
         }

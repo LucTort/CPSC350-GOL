@@ -5,6 +5,14 @@
 #include <string>
 using namespace std;
 
+//As per Christopher Chang
+#ifdef DEBUG
+#define deblog(msg) cout << msg << endl
+#else
+#define deblog(msg) ;
+#endif
+//As per Christopher Chang
+
 class Board 
 {
     public:

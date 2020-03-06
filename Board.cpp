@@ -10,6 +10,7 @@ Board::Board()
 
     width = 5;
 
+//classic
     boardArray = new bool*[height];
     for (int i = 0; i < height; ++i)
     {
@@ -19,8 +20,18 @@ Board::Board()
         }
     }
 
-    //initialize array
+//new
+    //     boardArray = new bool*[width];
+    // for (int i = 0; i < height; ++i)
+    // {
+    //     for (int j = 0; j < width; ++j)
+    //     {
+    //         boardArray[i] = new bool [height];
+    //     }
+    // }
 
+    //initialize array
+//classic
     for (int i = 0; i < height; ++i)
     {
         for (int j = 0; j < width; ++j)
@@ -29,6 +40,16 @@ Board::Board()
         }
         cout << endl;
     }
+
+//new
+    // for (int i = 0; i < width; ++i)
+    // {
+    //     for (int j = 0; j < height; ++j)
+    //     {
+    //         boardArray[j][i] = false;//random cells
+    //     }
+    //     cout << endl;
+    // }
 
 }
 
@@ -47,16 +68,18 @@ Board::Board(int xSizeInput, int ySizeInput)
         for (int j = 0; j < width; ++j)
         {
             boardArray[i] = new bool [width];
+            deblog("success");
         }
     }
 
     //initialize array
 
-    for (int i = 0; i < height; ++i)
+    for (int j = 0; j < height; ++j)
     {
-        for (int j = 0; j < width; ++j)
+        for (int i = 0; i < width; ++i)
         {
-           *(*(boardArray+i)+j) = false;//random cells
+           //*(*(boardArray+i)+j) = false;//random cells
+           boardArray[j][i] = false;
         }
         cout << endl;
     }   
@@ -69,20 +92,20 @@ Board::~Board()
 }
 
 
-
 void Board::printBoard()
     {
-
-        for (int x = 0; x < height; ++x)
+        deblog("Starting outer loop");
+        for (int y = 0; y < height; ++y)
         {
-            for (int y = 0; y < width; ++y)
+            //deblog("Starting inner loop");
+            for (int x = 0; x < width; ++x)
             {
 
-                if (isCellAlive(x, y))
+                 if (isCellAlive(x, y))
                 {
                     cout << "X ";
                 } else cout << ". ";
-            }
+             }
             cout << endl;
         }
 
@@ -92,20 +115,20 @@ void Board::printBoard()
 
     bool Board::isCellAlive(int xPosition, int yPosition)
     {
-        return boardArray[xPosition][yPosition];
+        return boardArray[yPosition][xPosition];
     }
 
     void Board::setCellState(int xPosition, int yPosition, bool isAlive)
     {
-        boardArray[xPosition][yPosition] = isAlive;
+        boardArray[yPosition][xPosition] = isAlive;
     }
 
     bool Board::isInBounds(int xPosition, int yPosition)
     {
         if ((xPosition < 0) || (yPosition < 0))
             return false;
-        else if((xPosition > width-1) || (yPosition > height-1))
+        else if((xPosition >= width) || (yPosition >= height))
             return false;
-        else 
+        else
             return true;
     }
