@@ -157,27 +157,51 @@ int main(int argc, char **argv)
       // cin>> iterations;
 
 
-      if (outputMode == 1){
+      if (outputMode == 1)
+      {
+        
+
         cout << "Please name the file you would like to output to (German.txt)"<<endl;
         cin>>outputfile;
-        cout << ".txt"<< endl;
+        //cout << ".txt"<< endl;
         cout << "How many max iterations would you like"<< endl;
         cin>> iterations;
-        for (int i = 0; i <= iterations; ++i){
-          myBoard -> PrintBoardToFile(outputfile);
+
+        ofstream outputFile(outputfile);
+        string toAppendToFile = "";
+
+        for (int i = 0; i <= iterations; ++i)
+        { 
+          toAppendToFile += myBoard->GetBoardAsString();
           myBoardUpdater -> UpdateBoard(*myBoard, mode);
-          if (myBoard->IsBoardEmpty()){
-            myBoard->PrintBoardToFile(outputfile);
+
+          if (myBoard->IsBoardEmpty())
+          {
+            toAppendToFile += myBoard->GetBoardAsString();
             cout<<"Board is empty"<<endl;
             break;
           }
         }
 
+        outputFile << toAppendToFile;
+        outputFile.close();
+
       }
-      else if (outputMode == 2){
-        cout << "term"<< endl;
+      else if (outputMode == 2)
+      {
+        for (int i = 0; i < iterations; ++i)
+        {
+          if (myBoard->IsBoardEmpty())
+          {
+            myBoard->printBoard();
+            cout<<"Board is empty"<<endl;
+            break;
+          }
+          cout << "term"<< endl;
+        }
       }
-      else if (outputMode == 3){
+      else if (outputMode == 3)
+      {
         cout << "enter"<< endl;
       }
 
@@ -186,19 +210,19 @@ int main(int argc, char **argv)
 
 
 
-      int count = 0;
-      for (int i = 0; i < iterations; ++i){
-        if (myBoard->IsBoardEmpty()){
-          myBoard->printBoard();
-          cout<<"Board is empty"<<endl;
-          break;
-        }
+      // int count = 0;
+      // for (int i = 0; i < iterations; ++i){
+      //   if (myBoard->IsBoardEmpty()){
+      //     myBoard->printBoard();
+      //     cout<<"Board is empty"<<endl;
+      //     break;
+      //   }
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        myBoardUpdater -> UpdateBoard (*myBoard, mode);
-        cout << "This is the "<< i+1 << "'th iteration"<< endl;
-        myBoard->printBoard();
-      }
+      //   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      //   myBoardUpdater -> UpdateBoard (*myBoard, mode);
+      //   cout << "This is the "<< i+1 << "'th iteration"<< endl;
+      //   myBoard->printBoard();
+      // }
       // cout << "Would you like to output the final iteration to an .txt file? "<< endl;
       // cout << "0) Yes"<<endl;
       // cout << "1) No"<< endl;

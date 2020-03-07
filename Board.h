@@ -33,7 +33,7 @@ class Board
 
         bool IsBoardEmpty();
 
-        void PrintBoardToFile(string);
+        string GetBoardAsString();
 
         int height;
 

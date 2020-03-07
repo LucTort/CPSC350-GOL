@@ -150,10 +150,10 @@ void Board::printBoard()
     return true;
 }
 
-void Board::PrintBoardToFile(string fileName)
+string Board::GetBoardAsString()
 {
 
-    ofstream outputFile(fileName);
+    string boardValues = "";
 
     for(int y = 0; y < height; ++y)
     {
@@ -161,19 +161,20 @@ void Board::PrintBoardToFile(string fileName)
         {
             if (boardArray[y][x])
             {
-                outputFile << "X";
+                boardValues += "X";
             }
             else
             {
-                outputFile << "-";
+                boardValues += "-";
             }
 
         }
-        outputFile << endl;
+        boardValues += '\n';
     }
     for(int y = 0; y < height; ++y)
     {
-        outputFile << endl;
+        boardValues += '\n';
     }
-    // outputFile.close();
+
+    return boardValues;
 }
