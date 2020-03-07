@@ -221,9 +221,8 @@ int main(int argc, char **argv)
       cin >> randlength;
       cout << "What width do you want your board? "<< endl;
       cin >> randwidth;
-      cout << "What percent of the cells would you like to be alive (0-100)"<<endl;
+      cout << "What percent of the cells would you like to be alive (1.0 - 0.0)"<<endl;
       cin >> percentageAlive;
-      percentageAlive = percentageAlive/100.0;
 
       Board *myBoard = new Board(randlength, randwidth);
       Board *prevBoard = new Board(randlength, randwidth);
@@ -330,7 +329,7 @@ int main(int argc, char **argv)
       else if (outputMode == 3)
       {
         // cout << "please press ENTER for the next generation"<< endl;
-        for (int i = 0; i<=1000; ++i){
+        while (true){
 
           myBoardUpdater -> CopyBoard(*myBoard, *prevBoard);
           myBoardUpdater -> UpdateBoard (*myBoard, mode);
