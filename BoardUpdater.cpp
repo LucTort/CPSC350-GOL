@@ -115,9 +115,9 @@ void  BoardUpdater::UpdateBoard(Board& currentBoard, int gameMode)
                 //cout << surroundingCells << endl;
                 }//for
                 //cout << endl;
-
            }//for
            //cout << endl << endl;
+           
 
 
             //end inner loop
