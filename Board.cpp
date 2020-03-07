@@ -1,5 +1,6 @@
 //https://www.youtube.com/watch?v=fwYlzznrId4
 //https://www.cplusplus.com/reference/cstdlib/rand/
+//Assignment 1
 
 #include "Board.h"
 
@@ -147,4 +148,31 @@ void Board::printBoard()
     }
 
     return true;
+}
+
+void Board::PrintBoardToFile(string fileName)
+{
+
+    ofstream outputFile(fileName);
+
+    for(int x = 0; x < width; ++x)
+    {
+        for(int y = 0; y < height; ++y)
+        {
+            if (boardArray[y][x])
+            {
+                outputFile << "X";
+            }
+            else
+            {
+                outputFile << "-";
+            }
+            
+        }
+        outputFile << endl;
+    }
+    for(int y = 0; y < height; ++y)
+    {
+        outputFile << endl;
+    }
 }
