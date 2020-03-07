@@ -11,6 +11,8 @@ using namespace std;
 int main(int argc, char **argv)
 
 {
+  //initializing variabkes
+
     string path = "";
     int number = 0;
     fstream f;
@@ -33,23 +35,24 @@ int main(int argc, char **argv)
     char ch = '\0';
 
 
-
+    //initial option
     cout<< "Please choose an option ('1' or '2'): "<< endl;
     cout << "1) To enter a file path "<<endl;
     cout << "2) For a random configuration"<<endl;
     cin >> number;
 
+    //text file FUNCTIONALITY
     if (number == 1){
       cout << "Please specify the .txt file you would like to run: "<<endl;
       cin >> path;
       cout << "this is the path: "<< path << endl;
+      //opening the file
       f.open(path);
       if (!f.is_open()){
         cout<<"the file could not be opened: "<<endl;
         return 0;
       }
-      // cout<<"The file has been opened"<< endl;
-      //finding the length and width of the txt file
+      //getting the board width and length
       for (int i = 0; i<=2; ++i){
         if (i == 1){
           getline(f, widthString);
@@ -62,11 +65,13 @@ int main(int argc, char **argv)
           // cout <<"Length: "<<length<< endl;
         }
       }
+      //creating the boards of width and length
       Board *myBoard = new Board(width, length);
       Board *prevBoard = new Board(width, length);
       BoardUpdater *myBoardUpdater = new BoardUpdater();
-      // myBoard->printBoard();
 
+
+      //creating the board
       for (int i =0; i<length ; ++i){
         getline(f,line);
         // cout<<line<<endl;
@@ -91,6 +96,9 @@ int main(int argc, char **argv)
 
       f.close();
 
+
+      //getting the game mode
+
       cout << "Which mode would you like to play? (1,2,3)"<< endl;
       cout << "0) Classic Mode "<< endl;
       cout << "1) Mirror Mode "<< endl;
@@ -101,6 +109,7 @@ int main(int argc, char **argv)
         cout << "That is not an option, please restart!! "<< endl;
         return 1;
       }
+      //seeing what they would like to do
       cout << "Would you like to: "<< endl;
       cout << "1) Output to a .txt file "<< endl;
       cout << "2) Output to the terminal "<< endl;
@@ -108,7 +117,7 @@ int main(int argc, char **argv)
       cin >> outputMode;
 
 
-
+      //txt file FUNCTIONALITY
       if (outputMode == 1)
       {
 
@@ -122,9 +131,11 @@ int main(int argc, char **argv)
         ofstream outputFile(outputfile);
         string toAppendToFile = "";
 
+        //main FUNCTIONALITY
+
         for (int i = 0; i <= iterations; ++i)
         {
-
+          //copying board for repeated state check
           myBoardUpdater -> CopyBoard(*myBoard, *prevBoard);
 
           toAppendToFile += myBoard->GetBoardAsString();
@@ -136,7 +147,7 @@ int main(int argc, char **argv)
             cout<<"The state is static"<<endl;
             break;
           }
-
+          //checking if empty
           if (myBoard->IsBoardEmpty())
           {
             toAppendToFile += myBoard->GetBoardAsString();
@@ -149,6 +160,7 @@ int main(int argc, char **argv)
         outputFile.close();
 
       }
+      // outputting to the terminal
       else if (outputMode == 2)
       {
         cout << "How many max iterations would you like"<< endl;
@@ -175,6 +187,7 @@ int main(int argc, char **argv)
           }
         }
       }
+      //outputting from enter button
       else if (outputMode == 3)
       {
         // cout << "please press ENTER for the next generation"<< endl;
@@ -198,7 +211,7 @@ int main(int argc, char **argv)
           }
           cout << "Please press ENTER for the next generation" << endl;
           cout << "If you want to exit the program, press the spacebar followed by ENTER" << endl;
-
+          //checking for a spacebar 
           std::cin.get(ch);
           if (ch == ' '){
             break;
@@ -208,21 +221,16 @@ int main(int argc, char **argv)
      }
 
 
-
-
-
-
-
-
-
+// if they would like to create a random board
     else if (number == 2){
       cout << "RANDOM BOARD"<< endl;
-      cout << "What length do you want your board? "<< endl;
-      cin >> randlength;
       cout << "What width do you want your board? "<< endl;
+      cin >> randlength;
+      cout << "What length do you want your board? "<< endl;
       cin >> randwidth;
       cout << "What percent of the cells would you like to be alive (1.0 - 0.0)"<<endl;
       cin >> percentageAlive;
+      //creating the needed boards
 
       Board *myBoard = new Board(randlength, randwidth);
       Board *prevBoard = new Board(randlength, randwidth);
@@ -230,6 +238,8 @@ int main(int argc, char **argv)
       BoardUpdater *myBoardUpdater = new BoardUpdater();
       myBoardUpdater -> RandomizeBoard(*myBoard, percentageAlive);
       myBoard -> printBoard();
+
+      //getting the mode from user
 
       cout << "Which mode would you like to play? (1,2,3)"<< endl;
       cout << "0) Classic Mode "<< endl;
@@ -241,17 +251,15 @@ int main(int argc, char **argv)
         cout << "That is not an option, please restart!! "<< endl;
         return 1;
       }
+
+      //seeing what they would like to do
       cout << "Would you like to: "<< endl;
       cout << "1) Output to a .txt file "<< endl;
       cout << "2) Output to the terminal "<< endl;
       cout << "3) Press the ENTER key for each iteration "<< endl;
       cin >> outputMode;
 
-
-      // cout << "How many max iterations would you like (150 recommended)"<< endl;
-      // cin>> iterations;
-
-
+      // text file logic
       if (outputMode == 1)
       {
 
@@ -292,6 +300,8 @@ int main(int argc, char **argv)
         outputFile.close();
 
       }
+
+      //output to terminal logic
       else if (outputMode == 2)
       {
         cout << "How many max iterations would you like"<< endl;
@@ -326,6 +336,8 @@ int main(int argc, char **argv)
           }
         }
       }
+
+      //enter key logic
       else if (outputMode == 3)
       {
         // cout << "please press ENTER for the next generation"<< endl;
@@ -348,6 +360,7 @@ int main(int argc, char **argv)
           cout << "Please press ENTER for the next generation" << endl;
           cout << "If you want to exit the program, press the spacebar followed by ENTER" << endl;
 
+          //checking for a space bar
           std::cin.get(ch);
           if (ch == ' '){
             break;
