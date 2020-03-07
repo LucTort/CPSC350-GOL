@@ -31,6 +31,8 @@ class Board
 
         bool isInBounds(int, int);
 
+        bool IsBoardEmpty();
+
         int height;
 
         int width;

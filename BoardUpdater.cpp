@@ -209,6 +209,8 @@ bool  BoardUpdater::AreBoardsSame(Board& referenceBoard, Board& boardToCheck)
     return true;
 }
 
+
+
 bool BoardUpdater::DoesCellLive(int surroundingCells, bool currentState)
 {
     //cout << surroundingCells << " ";

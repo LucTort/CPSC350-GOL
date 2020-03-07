@@ -26,9 +26,17 @@ int main(int argc, char **argv)
 
         Board *myBoardAgain = new Board(5, 4);
 
+        boardUpdater->RandomizeBoard(*myBoardAgain, 0.0);
+
+        cout << "My board: " << myBoard->IsBoardEmpty() << endl;
+
+        cout << "My board again: " << myBoardAgain->IsBoardEmpty() << endl;
+
         boardUpdater->CopyBoard(*myBoard, *myBoardAgain);
 
         cout << boardUpdater->AreBoardsSame(*myBoard, *myBoardAgain) << endl;
+
+
 
 
         //boardUpdater->WaitForEnter();

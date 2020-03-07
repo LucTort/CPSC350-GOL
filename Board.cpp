@@ -132,3 +132,19 @@ void Board::printBoard()
         else
             return true;
     }
+
+    bool  Board::IsBoardEmpty()
+{
+     for (int i = 0; i < height; ++i)
+    {
+        for (int j = 0; j <width; ++j)
+        {
+           if (boardArray[i][j] == true)
+           {
+               return false;
+           }
+        }
+    }
+
+    return true;
+}
