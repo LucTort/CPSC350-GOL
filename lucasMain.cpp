@@ -5,7 +5,7 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-    Board *myBoard = new Board(3, 9);
+    Board *myBoard = new Board(20, 50);
 
     BoardUpdater *boardUpdater = new BoardUpdater();
     boardUpdater->RandomizeBoard(*myBoard, 0.4);
