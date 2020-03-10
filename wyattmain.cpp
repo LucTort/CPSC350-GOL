@@ -121,12 +121,15 @@ int main(int argc, char **argv)
       cout << "1) Mirror Mode "<< endl;
       cout << "2) Donut Mode "<< endl;
       cin >> mode;
-      myBoardUpdater -> UpdateBoard (*myBoard, mode);
+      // myBoardUpdater -> UpdateBoard (*myBoard, mode);
       if (mode>2){
         cout << "That is not an option, please restart!! "<< endl;
         return 1;
       }
-      myBoard->printBoard();
+      for (int i = 0; i < 50; ++i){
+        myBoardUpdater -> UpdateBoard (*myBoard, mode);
+        myBoard->printBoard();
+      }
     }
 
 
