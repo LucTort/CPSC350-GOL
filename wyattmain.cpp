@@ -58,7 +58,7 @@ int main(int argc, char **argv)
       cout<< length << "Length"<< endl;
       cout<< width << "Width"<< endl;
       cout<<  "fchghjnhgcfgvhbjnjbhvgcfhvbjnhvgcfhvbjnkbhvgcfxhjkhgcfhjnhgcfxdgcvhbjbhgf"<< endl;
-      Board *myBoard = new Board(length, width);
+      Board *myBoard = new Board(width, length);
       myBoard->printBoard();
 
       for (int i =0; i<length ; ++i){
@@ -88,6 +88,19 @@ int main(int argc, char **argv)
       myBoard->printBoard();
 
       f.close();
+
+      cout << "Which mode would you like to play? (1,2,3)"<< endl;
+      cout << "0) Classic Mode "<< endl;
+      cout << "1) Mirror Mode "<< endl;
+      cout << "2) Donut Mode "<< endl;
+      cin >> mode;
+      BoardUpdater *myBoardUpdater = new BoardUpdater();
+      myBoardUpdater -> UpdateBoard (*myBoard, mode);
+      if (mode>2){
+        cout << "That is not an option, please restart!! "<< endl;
+        return 1;
+      }
+      myBoard->printBoard();
      }
     else if (number == 2){
       cout << "RANDOM BOARD"<< endl;
@@ -113,18 +126,19 @@ int main(int argc, char **argv)
         cout << "That is not an option, please restart!! "<< endl;
         return 1;
       }
+      myBoard->printBoard();
     }
 
 
     BoardUpdater *boardUpdater = new BoardUpdater();
 
 //        TO DO LIST
-// USER INPUT DIMENSIONS FOR Randomize
-// IMPLEMENT ALL LUCAS METHODS
 // OUTPUT TO A FILE
 // SLEEP OUTPUT
 // ENTER FUNCTIONALITY
 // . TO -
+// DONUT MODE NEEDS FIXING
+
 
     return 0;
 }
