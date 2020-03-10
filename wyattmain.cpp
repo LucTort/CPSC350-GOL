@@ -22,7 +22,7 @@ int main(int argc, char **argv)
     int randlength = 0;
     int randwidth = 0;
     double percentageAlive = 0.0;
-    int mode = 0; 
+    int mode = 0;
 
 
 
@@ -102,24 +102,18 @@ int main(int argc, char **argv)
       BoardUpdater *myBoardUpdater = new BoardUpdater();
       myBoardUpdater -> RandomizeBoard(*myBoard, percentageAlive);
       myBoard -> printBoard();
+
+      cout << "Which mode would you like to play? (1,2,3)"<< endl;
+      cout << "0) Classic Mode "<< endl;
+      cout << "1) Mirror Mode "<< endl;
+      cout << "2) Donut Mode "<< endl;
+      cin >> mode;
+      myBoardUpdater -> UpdateBoard (*myBoard, mode);
+      if (mode>2){
+        cout << "That is not an option, please restart!! "<< endl;
+        return 1;
+      }
     }
-    cout << "Which mode would you like to play? (1,2,3)"<< endl;
-    cout << "0) Classic Mode "<< endl;
-    cout << "1) Mirror Mode "<< endl;
-    cout << "2) Donut Mode "<< endl;
-    cin >> mode;
-    if (mode == 0){
-
-
-    }else if (mode == 1){
-
-    }else if (mode == 2){
-
-    }else{
-      cout << "Please enter a valid number, try again! "<< endl;
-      return 1;
-    }
-
 
 
     BoardUpdater *boardUpdater = new BoardUpdater();

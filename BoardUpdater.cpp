@@ -36,7 +36,7 @@ void  BoardUpdater::UpdateBoard(Board& currentBoard, int gameMode)
                     {
                         switch (gameMode)
                         {
- //     __  ____                     
+ //     __  ____
  //    /  |/  (_)_____________  _____
  //   / /|_/ / / ___/ ___/ __ \/ ___/
  //  / /  / / / /  / /  / /_/ / /
@@ -154,15 +154,15 @@ void  BoardUpdater::RandomizeBoard(Board& currentBoard, double percentLiving)
     }
 
 
-    int randX = rand() % currentBoard.width;
-    int randY = rand() % currentBoard.height;
+    int randY= rand() % currentBoard.width;
+    int randX = rand() % currentBoard.height;
 
     for (int i = 0; i < spacesToPopulate; ++i)
     {
         while (currentBoard.isCellAlive(randX , randY) )
         {
-            randX = rand() % currentBoard.width;
-            randY = rand() % currentBoard.height;
+            randY = rand() % currentBoard.width;
+            randX = rand() % currentBoard.height;
         }
 
 
