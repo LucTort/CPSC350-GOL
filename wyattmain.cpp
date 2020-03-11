@@ -1,6 +1,9 @@
 // #include "Board.cpp"
 // http://www.cplusplus.com/forum/beginner/106204/
 //https://www.techiedelight.com/convert-string-to-int-cpp/
+// https://stackoverflow.com/questions/4184468/sleep-for-milliseconds
+#include <chrono>
+#include <thread>
 #include "ReadFile.cpp"
 
 using namespace std;
@@ -23,6 +26,9 @@ int main(int argc, char **argv)
     int randwidth = 0;
     double percentageAlive = 0.0;
     int mode = 0;
+    int iterations = 0;
+    int txtfile = 0;
+    string outputfile = "";
 
 
 
@@ -88,7 +94,8 @@ int main(int argc, char **argv)
       myBoard->printBoard();
 
       f.close();
-
+      cout << "How many max iterations would you like (150 recommended)"<< endl;
+      cin>> iterations;
       cout << "Which mode would you like to play? (1,2,3)"<< endl;
       cout << "0) Classic Mode "<< endl;
       cout << "1) Mirror Mode "<< endl;
@@ -100,7 +107,19 @@ int main(int argc, char **argv)
         cout << "That is not an option, please restart!! "<< endl;
         return 1;
       }
-      myBoard->printBoard();
+
+      for (int i = 0; i < iterations; ++i){
+        if (myBoard->IsBoardEmpty()){
+          myBoard->printBoard();
+          cout<<"Board is empty"<<endl;
+          break;
+        }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        myBoardUpdater -> UpdateBoard (*myBoard, mode);
+        cout << "This is the "<< i+1 << "'th iteration"<< endl;
+        myBoard->printBoard();
+      }
      }
     else if (number == 2){
       cout << "RANDOM BOARD"<< endl;
@@ -116,6 +135,8 @@ int main(int argc, char **argv)
       myBoardUpdater -> RandomizeBoard(*myBoard, percentageAlive);
       myBoard -> printBoard();
 
+      cout << "How many max iterations would you like (150 recommended)"<< endl;
+      cin>> iterations;
       cout << "Which mode would you like to play? (1,2,3)"<< endl;
       cout << "0) Classic Mode "<< endl;
       cout << "1) Mirror Mode "<< endl;
@@ -126,9 +147,30 @@ int main(int argc, char **argv)
         cout << "That is not an option, please restart!! "<< endl;
         return 1;
       }
-      for (int i = 0; i < 50; ++i){
+      int count = 0;
+      for (int i = 0; i < iterations; ++i){
+        if (myBoard->IsBoardEmpty()){
+          myBoard->printBoard();
+          cout<<"Board is empty"<<endl;
+          break;
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
         myBoardUpdater -> UpdateBoard (*myBoard, mode);
+        cout << "This is the "<< i+1 << "'th iteration"<< endl;
         myBoard->printBoard();
+      }
+      cout << "Would you like to output the final iteration to an .txt file? "<< endl;
+      cout << "0) Yes"<<endl;
+      cout << "1) No"<< endl;
+      cin >> txtfile;
+      if (txtfile == 0){
+        cout << "Please name the file you would like to output to (German.txt)"<<endl;
+        cin>>outputfile;
+        std::ofstream ofs (outputfile, std::ofstream::out);
+        ofs<< "Wyatt Miller : 2302376"<<endl<<
+        "Lucas Torti : 2351555"<<endl
+        ;
+
       }
     }
 
