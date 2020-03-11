@@ -175,5 +175,5 @@ void Board::PrintBoardToFile(string fileName)
     {
         outputFile << endl;
     }
-    outputFile.close();
+    // outputFile.close();
 }

@@ -172,7 +172,6 @@ int main(int argc, char **argv)
             break;
           }
         }
-        outputFile.close();
 
       }
       else if (outputMode == 2){
