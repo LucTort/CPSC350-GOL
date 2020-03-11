@@ -83,7 +83,7 @@ Board::Board(int xSizeInput, int ySizeInput)
            boardArray[j][i] = false;
         }
         cout << endl;
-    }   
+    }
 
 }
 
@@ -167,7 +167,7 @@ void Board::PrintBoardToFile(string fileName)
             {
                 outputFile << "-";
             }
-            
+
         }
         outputFile << endl;
     }
@@ -175,4 +175,5 @@ void Board::PrintBoardToFile(string fileName)
     {
         outputFile << endl;
     }
+    outputFile.close();
 }

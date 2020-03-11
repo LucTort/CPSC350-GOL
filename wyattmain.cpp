@@ -29,6 +29,7 @@ int main(int argc, char **argv)
     int iterations = 0;
     int txtfile = 0;
     string outputfile = "";
+    int outputMode = 0;
 
 
 
@@ -135,8 +136,6 @@ int main(int argc, char **argv)
       myBoardUpdater -> RandomizeBoard(*myBoard, percentageAlive);
       myBoard -> printBoard();
 
-      cout << "How many max iterations would you like (150 recommended)"<< endl;
-      cin>> iterations;
       cout << "Which mode would you like to play? (1,2,3)"<< endl;
       cout << "0) Classic Mode "<< endl;
       cout << "1) Mirror Mode "<< endl;
@@ -147,6 +146,47 @@ int main(int argc, char **argv)
         cout << "That is not an option, please restart!! "<< endl;
         return 1;
       }
+      cout << "Would you like to: "<< endl;
+      cout << "1) Output to a .txt file "<< endl;
+      cout << "2) Output to the terminal "<< endl;
+      cout << "3) Press the ENTER key for each iteration "<< endl;
+      cin >> outputMode;
+
+
+      // cout << "How many max iterations would you like (150 recommended)"<< endl;
+      // cin>> iterations;
+
+
+      if (outputMode == 1){
+        cout << "Please name the file you would like to output to (German.txt)"<<endl;
+        cin>>outputfile;
+        cout << ".txt"<< endl;
+        cout << "How many max iterations would you like"<< endl;
+        cin>> iterations;
+        for (int i = 0; i <= iterations; ++i){
+          myBoard -> PrintBoardToFile(outputfile);
+          myBoardUpdater -> UpdateBoard(*myBoard, mode);
+          if (myBoard->IsBoardEmpty()){
+            myBoard->PrintBoardToFile(outputfile);
+            cout<<"Board is empty"<<endl;
+            break;
+          }
+        }
+        outputFile.close();
+
+      }
+      else if (outputMode == 2){
+        cout << "term"<< endl;
+      }
+      else if (outputMode == 3){
+        cout << "enter"<< endl;
+      }
+
+
+
+
+
+
       int count = 0;
       for (int i = 0; i < iterations; ++i){
         if (myBoard->IsBoardEmpty()){
@@ -154,24 +194,25 @@ int main(int argc, char **argv)
           cout<<"Board is empty"<<endl;
           break;
         }
+
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
         myBoardUpdater -> UpdateBoard (*myBoard, mode);
         cout << "This is the "<< i+1 << "'th iteration"<< endl;
         myBoard->printBoard();
       }
-      cout << "Would you like to output the final iteration to an .txt file? "<< endl;
-      cout << "0) Yes"<<endl;
-      cout << "1) No"<< endl;
-      cin >> txtfile;
-      if (txtfile == 0){
-        cout << "Please name the file you would like to output to (German.txt)"<<endl;
-        cin>>outputfile;
-        std::ofstream ofs (outputfile, std::ofstream::out);
-        ofs<< "Wyatt Miller : 2302376"<<endl<<
-        "Lucas Torti : 2351555"<<endl
-        ;
+      // cout << "Would you like to output the final iteration to an .txt file? "<< endl;
+      // cout << "0) Yes"<<endl;
+      // cout << "1) No"<< endl;
+      // cin >> txtfile;
+      // if (txtfile == 0){
+      //   cout << "Please name the file you would like to output to (German.txt)"<<endl;
+      //   cin>>outputfile;
+      //   std::ofstream ofs (outputfile, std::ofstream::out);
+      //   ofs<< "Wyatt Miller : 2302376"<<endl<<
+      //   "Lucas Torti : 2351555"<<endl
+      //   ;
 
-      }
+      //}
     }
 
 
