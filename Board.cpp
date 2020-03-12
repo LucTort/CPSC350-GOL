@@ -104,8 +104,8 @@ void Board::printBoard()
 
                  if (isCellAlive(x, y))
                 {
-                    cout << "X ";
-                } else cout << ". ";
+                    cout << "X";
+                } else cout << "-";
              }
             cout << endl;
         }
