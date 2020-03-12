@@ -124,7 +124,7 @@ void  BoardUpdater::UpdateBoard(Board &currentBoard, int gameMode)
                 //cout << endl;
            }//for
            //cout << endl << endl;
-           
+
 
 
             //end inner loop
@@ -144,7 +144,7 @@ void  BoardUpdater::UpdateBoard(Board &currentBoard, int gameMode)
 
 void  BoardUpdater::RandomizeBoard(Board& currentBoard, double percentLiving)
 {
-    
+
     int spacesToPopulate = ( int (currentBoard.width * currentBoard.height * percentLiving));
 
     cout << spacesToPopulate << endl;
@@ -163,7 +163,7 @@ void  BoardUpdater::RandomizeBoard(Board& currentBoard, double percentLiving)
            currentBoard.boardArray[j][i] = false;//random cells
         }
     }
-    
+
 
 
     int randY= rand() % currentBoard.height;
@@ -227,7 +227,8 @@ bool BoardUpdater::DoesCellLive(int surroundingCells, bool currentState)
 
 void BoardUpdater::WaitForEnter()
 {
-    cout << "Please press enter" << endl;
+    // cout << "Please press ENTER for the next generation" << endl;
+    // cout << "If you want to exit the program, press the spacebar followed by ENTER" << endl;
 
     cin.get();
 }
