@@ -54,20 +54,22 @@ int main(int argc, char **argv)
         if (i == 1){
           getline(f, widthString);
           width = std::stoi(widthString);
-          cout <<"Width: "<< width<<endl;
+          // cout <<"Width: "<< width<<endl;
         }
         else if (i == 2){
           getline(f, lengthString);
           length = std::stoi(lengthString);
-          cout <<"Length: "<<length<< endl;
+          // cout <<"Length: "<<length<< endl;
         }
       }
       Board *myBoard = new Board(width, length);
-      myBoard->printBoard();
+      Board *prevBoard = new Board(width, length);
+      BoardUpdater *myBoardUpdater = new BoardUpdater();
+      // myBoard->printBoard();
 
       for (int i =0; i<length ; ++i){
         getline(f,line);
-        cout<<line<<endl;
+        // cout<<line<<endl;
         int index = 0;
         xcount += 1;
         ycount = -1;
@@ -75,50 +77,144 @@ int main(int argc, char **argv)
         //https://stackoverflow.com/questions/1315041/how-can-i-iterate-through-a-string-and-also-know-the-index-current-position
         for (auto it = line.begin() ; it < line.end(); ++it, ++index){
           ycount += 1;
-          cout << index << ": "<<*it<< endl;
+          // cout << index << ": "<<*it<< endl;
           if (*it == 'X'){
-            myBoard->setCellState(xcount, ycount, 1);
+            myBoard->setCellState(ycount, xcount, 1);
           }
           else if (*it == '.'){
-            myBoard->setCellState(xcount, ycount, 0);
+            myBoard->setCellState(ycount, xcount, 0);
           }
         }
       }
-      cout<<"Here is the board we want to be printed correctly"<< endl;
+      cout<<"Here is the original text file board "<< endl;
       myBoard->printBoard();
 
       f.close();
 
-      
-      cout << "How many max iterations would you like? "<< endl;
-      cin>> iterations;
       cout << "Which mode would you like to play? (1,2,3)"<< endl;
       cout << "0) Classic Mode "<< endl;
       cout << "1) Mirror Mode "<< endl;
       cout << "2) Donut Mode "<< endl;
       cin >> mode;
-      BoardUpdater *myBoardUpdater = new BoardUpdater();
-      myBoardUpdater -> UpdateBoard (*myBoard, mode);
+      // myBoardUpdater -> UpdateBoard (*myBoard, mode);
       if (mode>2){
         cout << "That is not an option, please restart!! "<< endl;
         return 1;
       }
+      cout << "Would you like to: "<< endl;
+      cout << "1) Output to a .txt file "<< endl;
+      cout << "2) Output to the terminal "<< endl;
+      cout << "3) Press the ENTER key for each iteration "<< endl;
+      cin >> outputMode;
 
-      for (int i = 0; i < iterations; ++i){
-        if (myBoard->IsBoardEmpty()){
-          myBoard->printBoard();
-          cout<<"Board is empty"<<endl;
-          break;
+
+
+      if (outputMode == 1)
+      {
+
+
+        cout << "Please name the file you would like to output to (German.txt)"<<endl;
+        cin>>outputfile;
+        //cout << ".txt"<< endl;
+        cout << "How many max iterations would you like"<< endl;
+        cin>> iterations;
+
+        ofstream outputFile(outputfile);
+        string toAppendToFile = "";
+
+        for (int i = 0; i <= iterations; ++i)
+        {
+
+          myBoardUpdater -> CopyBoard(*myBoard, *prevBoard);
+
+          toAppendToFile += myBoard->GetBoardAsString();
+          myBoardUpdater -> UpdateBoard(*myBoard, mode);
+
+          if (myBoardUpdater -> AreBoardsSame(*prevBoard, *myBoard)){
+            // cout << "THIS IS PREV BOARD WHEN STATIC"<<endl;
+            prevBoard->printBoard();
+            cout<<"The state is static"<<endl;
+            break;
+          }
+
+          if (myBoard->IsBoardEmpty())
+          {
+            toAppendToFile += myBoard->GetBoardAsString();
+            cout<<"Board is empty"<<endl;
+            break;
+          }
         }
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        myBoardUpdater -> UpdateBoard (*myBoard, mode);
-        cout << "This is the "<< i+1 << "'th iteration"<< endl;
-        myBoard->printBoard();
+        outputFile << toAppendToFile;
+        outputFile.close();
+
       }
+      else if (outputMode == 2)
+      {
+        cout << "How many max iterations would you like"<< endl;
+        cin>> iterations;
+        int count = 0;
+        for (int i = 0; i < iterations; ++i){
+          if (myBoard->IsBoardEmpty()){
+            myBoard->printBoard();
+            cout<<"Board is empty"<<endl;
+            break;
+          }
+          myBoardUpdater -> CopyBoard(*myBoard, *prevBoard);
+
+          std::this_thread::sleep_for(std::chrono::milliseconds(100));
+          myBoardUpdater -> UpdateBoard (*myBoard, mode);
+          cout << "This is the "<< i+1 << "'th iteration"<< endl;
+          myBoard->printBoard();
+
+          if (myBoardUpdater -> AreBoardsSame(*prevBoard, *myBoard)){
+            // cout << "THIS IS PREV BOARD WHEN STATIC"<<endl;
+            prevBoard->printBoard();
+            cout<<"The state is static"<<endl;
+            break;
+          }
+        }
+      }
+      else if (outputMode == 3)
+      {
+        // cout << "please press ENTER for the next generation"<< endl;
+        for (int i = 0; i<=1000; ++i){
 
 
+
+          myBoardUpdater -> CopyBoard(*myBoard, *prevBoard);
+          myBoardUpdater -> UpdateBoard (*myBoard, mode);
+          myBoard->printBoard();
+          if (myBoardUpdater -> AreBoardsSame(*prevBoard, *myBoard)){
+            // cout << "THIS IS PREV BOARD WHEN STATIC"<<endl;
+            prevBoard->printBoard();
+            cout<<"The state is static"<<endl;
+            break;
+          }
+          if (myBoard->IsBoardEmpty())
+          {
+            cout<<"Board is empty"<<endl;
+            break;
+          }
+          cout << "Please press ENTER for the next generation" << endl;
+          cout << "If you want to exit the program, press the spacebar followed by ENTER" << endl;
+
+          std::cin.get(ch);
+          if (ch == ' '){
+            break;
+          }
+        }
+      }
      }
+
+
+
+
+
+
+
+
+
     else if (number == 2){
       cout << "RANDOM BOARD"<< endl;
       cout << "What length do you want your board? "<< endl;
@@ -172,8 +268,18 @@ int main(int argc, char **argv)
 
         for (int i = 0; i <= iterations; ++i)
         {
+
+          myBoardUpdater -> CopyBoard(*myBoard, *prevBoard);
+
           toAppendToFile += myBoard->GetBoardAsString();
           myBoardUpdater -> UpdateBoard(*myBoard, mode);
+
+          if (myBoardUpdater -> AreBoardsSame(*prevBoard, *myBoard)){
+            // cout << "THIS IS PREV BOARD WHEN STATIC"<<endl;
+            prevBoard->printBoard();
+            cout<<"The state is static"<<endl;
+            break;
+          }
 
           if (myBoard->IsBoardEmpty())
           {
@@ -225,8 +331,21 @@ int main(int argc, char **argv)
       {
         // cout << "please press ENTER for the next generation"<< endl;
         for (int i = 0; i<=1000; ++i){
+
+          myBoardUpdater -> CopyBoard(*myBoard, *prevBoard);
           myBoardUpdater -> UpdateBoard (*myBoard, mode);
           myBoard->printBoard();
+          if (myBoardUpdater -> AreBoardsSame(*prevBoard, *myBoard)){
+            // cout << "THIS IS PREV BOARD WHEN STATIC"<<endl;
+            prevBoard->printBoard();
+            cout<<"The state is static"<<endl;
+            break;
+          }
+          if (myBoard->IsBoardEmpty())
+          {
+            cout<<"Board is empty"<<endl;
+            break;
+          }
           cout << "Please press ENTER for the next generation" << endl;
           cout << "If you want to exit the program, press the spacebar followed by ENTER" << endl;
 
@@ -241,7 +360,7 @@ int main(int argc, char **argv)
       }
 
 
-
+//here
 
 
 
@@ -272,6 +391,10 @@ int main(int argc, char **argv)
 
       //}
     }
+
+
+
+
 
 
     BoardUpdater *boardUpdater = new BoardUpdater();
