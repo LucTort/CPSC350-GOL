@@ -217,9 +217,9 @@ int main(int argc, char **argv)
 
     else if (number == 2){
       cout << "RANDOM BOARD"<< endl;
-      cout << "What length do you want your board? "<< endl;
-      cin >> randlength;
       cout << "What width do you want your board? "<< endl;
+      cin >> randlength;
+      cout << "What length do you want your board? "<< endl;
       cin >> randwidth;
       cout << "What percent of the cells would you like to be alive (0-100)"<<endl;
       cin >> percentageAlive;
