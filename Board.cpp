@@ -10,12 +10,9 @@
 // 2) 
 // This is a class which stores all the values for the board of game of life. In addition it contains helper functions.
 
-// 3) All classes/methods/functions/member variables/etc will be documented individually
-// with block comments providing the following:
-
 #include "Board.h"
 
-//
+//Default constructor
 Board::Board()
 {
     height = 5;
@@ -43,9 +40,9 @@ Board::Board()
         cout << endl;
     }
 
-
 }
 
+//Overloaded constructor
 Board::Board(int xSizeInput, int ySizeInput)
 {
 
@@ -81,6 +78,7 @@ Board::Board(int xSizeInput, int ySizeInput)
 
 }
 
+//Destructor
 Board::~Board()
 {
 
@@ -111,16 +109,28 @@ void Board::printBoard()
 
     }
 
+    // a. isCellAlive
+    // b. Value depending on wether a cell is alive at a specific location or not
+    // c. Takes in a position in x and y co-ordiantes
+    // d. No exception types
     bool Board::isCellAlive(int xPosition, int yPosition)
     {
         return boardArray[yPosition][xPosition];
     }
 
+    // a. setCellState
+    // b. No return type
+    // c. Takes in a position in x and y co-ordiantes and whether or not a cell should be alive
+    // d. No exception types
     void Board::setCellState(int xPosition, int yPosition, bool isAlive)
     {
         boardArray[yPosition][xPosition] = isAlive;
     }
 
+    // a. isInBounds
+    // b. Returns true or false depending on if a cell is within the bounds of the board
+    // c. Takes in a position in x and y co-ordiantes
+    // d. No exception types
     bool Board::isInBounds(int xPosition, int yPosition)
     {
         if ((xPosition < 0) || (yPosition < 0))
@@ -131,6 +141,10 @@ void Board::printBoard()
             return true;
     }
 
+    // a. IsBoardEmpty
+    // b. Returns whether or not a board is empty
+    // c. No parameter type
+    // d. No exception types
     bool  Board::IsBoardEmpty()
 {
     //iterates through array and returns false if any location in the array is full, otherwise returns true
@@ -148,9 +162,12 @@ void Board::printBoard()
     return true;
 }
 
+// a. GetBoardAsString
+// b. Returns the value of a board in Xs and -s as a string
+// c. No parameter type
+// d. No exception types
 string Board::GetBoardAsString()
 {
-
     string boardValues = "";
 
     //iterates through array, ceating a string of values as it does so

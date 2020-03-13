@@ -1,9 +1,19 @@
+// 1) 
+// a. Lucas Torti
+// b. 2351555
+// c. torti@chapman.edu
+// d. CPSC350 - 01
+// e. Assignment 2, Game of Life
+// 2) 
+// This .h file declares the constructors, destructors, functions, and variables needed for the Board class.
+
 #include <iostream>
 #include <fstream>
 #include <cmath>
 #include <algorithm>
 #include <string>
 using namespace std;
+
 
 //As per Christopher Chang
 #ifdef DEBUG

@@ -1,3 +1,12 @@
+// 1) 
+// a. Lucas Torti
+// b. 2351555
+// c. torti@chapman.edu
+// d. CPSC350 - 01
+// e. Assignment 2, Game of Life
+// 2) 
+// This class is in charge of running the Game of Life calculations in addition to providing some misc. functions
+
 //https://stackoverflow.com/questions/21257544/c-wait-for-user-input
 #include "BoardUpdater.h"
 
@@ -7,8 +16,10 @@ BoardUpdater::BoardUpdater()
 
 }
 
-
-
+// a. UpdateBoard
+// b. Returns no value
+// c. Takes in a Board as well as a gamemode to calculate with
+// d. No exception types
 void  BoardUpdater::UpdateBoard(Board &currentBoard, int gameMode)
 {
     int surroundingCells = 0;
@@ -16,7 +27,6 @@ void  BoardUpdater::UpdateBoard(Board &currentBoard, int gameMode)
     Board *placeholderBoard = new Board(currentBoard.width, currentBoard.height);
 
 
-    //
     //outer loop
 
      for (int yBoard = 0; yBoard < currentBoard.height; ++yBoard)
@@ -108,22 +118,6 @@ void  BoardUpdater::UpdateBoard(Board &currentBoard, int gameMode)
                                 surroundingCells += currentBoard.isCellAlive(xToCheck, yToCheck);
 
                                 break;
-//     ________                _
-//    / ____/ /___ ___________(_)____
-//   / /   / / __ `/ ___/ ___/ / ___/
-//  / /___/ / /_/ (__  |__  ) / /__
-//  \____/_/\__,_/____/____/_/\___/
-//
-                            //default://classic
-                              //  break;
-                        }
-                    }
-
-                //cout << surroundingCells << endl;
-                }//for
-                //cout << endl;
-           }//for
-           //cout << endl << endl;
 
 
 
@@ -141,6 +135,14 @@ void  BoardUpdater::UpdateBoard(Board &currentBoard, int gameMode)
      deblog("Trying to copy board");
      CopyBoard(*placeholderBoard, currentBoard);
 }//UpdateBoard
+
+
+
+
+// a. RandomizeBoard
+// b. Returns no value
+// c. Takes in a Board object as well as a number of cells to keep living
+// d. There is an exception if the cells to populate would exceed 100%
 
 void  BoardUpdater::RandomizeBoard(Board& currentBoard, double percentLiving)
 {
@@ -182,6 +184,10 @@ void  BoardUpdater::RandomizeBoard(Board& currentBoard, double percentLiving)
     }
 }
 
+// a. CopyBoard
+// b. Returns no value
+// c. Takes in two Board objects
+// d. No exception types
 void  BoardUpdater::CopyBoard(Board& boardToCopy, Board& boardToUpdate)
 {
      for (int i = 0; i < boardToCopy.height; ++i)
@@ -193,6 +199,10 @@ void  BoardUpdater::CopyBoard(Board& boardToCopy, Board& boardToUpdate)
     }
 }
 
+// a. AreBoardsSame
+// b. Returns whether or not two boards have the same values
+// c. Takes in two boards
+// d. No exception types
 bool  BoardUpdater::AreBoardsSame(Board& referenceBoard, Board& boardToCheck)
 {
      for (int i = 0; i < referenceBoard.height; ++i)
@@ -210,7 +220,10 @@ bool  BoardUpdater::AreBoardsSame(Board& referenceBoard, Board& boardToCheck)
 }
 
 
-
+// a. DoesCellLive
+// b. Returns whether or not a cell would live based on the number of surrounding cells
+// c. Takes in the number of surrounding cells as well as the selected cell's current state
+// d. No exception types
 bool BoardUpdater::DoesCellLive(int surroundingCells, bool currentState)
 {
     //cout << surroundingCells << " ";
@@ -225,6 +238,10 @@ bool BoardUpdater::DoesCellLive(int surroundingCells, bool currentState)
          return false;
 }
 
+// a. WaitForEnter
+// b. Returns no value
+// c. No parameter type
+// d. No exception types
 void BoardUpdater::WaitForEnter()
 {
     // cout << "Please press ENTER for the next generation" << endl;
