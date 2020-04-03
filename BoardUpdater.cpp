@@ -118,6 +118,15 @@ void  BoardUpdater::UpdateBoard(Board &currentBoard, int gameMode)
                                 surroundingCells += currentBoard.isCellAlive(xToCheck, yToCheck);
 
                                 break;
+                                                        
+                                }
+                    }
+
+                //cout << surroundingCells << endl;
+                }//for
+                //cout << endl;
+           }//fo
+
 
 
 
